@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/danielgatis/go-ruby-prism/parser"
+	"github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 var _ parser.Visitor = (*visitor)(nil)

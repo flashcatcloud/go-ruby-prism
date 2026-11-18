@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	parser "github.com/danielgatis/go-ruby-prism/parser"
+	parser "github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 func main() {

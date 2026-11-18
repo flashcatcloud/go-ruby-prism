@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/danielgatis/go-ruby-prism/parser"
+	"github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 const (
