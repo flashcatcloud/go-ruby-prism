@@ -3,6 +3,7 @@ package wasm
 import (
 	"context"
 	_ "embed"
+	"errors"
 	"fmt"
 
 	"github.com/tetratelabs/wazero"
@@ -63,12 +64,20 @@ type Runtime struct {
 	modPmBufferFree     *ModFunc
 }
 
-func NewRuntime(ctx context.Context) (*Runtime, error) {
-	runtime := wazero.NewRuntime(ctx)
+const MemoryLimitPages = 1024 // 64 MiB, independent of the Ruby execution runtime.
 
-	wasi_snapshot_preview1.MustInstantiate(ctx, runtime)
+var ErrMemoryLimit = errors.New("prism linear memory limit exceeded")
+
+func NewRuntime(ctx context.Context) (*Runtime, error) {
+	runtime := wazero.NewRuntimeWithConfig(ctx, wazero.NewRuntimeConfig().WithMemoryLimitPages(MemoryLimitPages).WithCloseOnContextDone(true))
+
+	if _, err := wasi_snapshot_preview1.Instantiate(ctx, runtime); err != nil {
+		_ = runtime.Close(ctx)
+		return nil, err
+	}
 	mod, err := runtime.Instantiate(ctx, prismWasm)
 	if err != nil {
+		_ = runtime.Close(ctx)
 		return nil, fmt.Errorf("failed to instantiate prism: %w", err)
 	}
 
@@ -95,7 +104,11 @@ func (r *Runtime) Close(ctx context.Context) error {
 }
 
 func (r *Runtime) Calloc(ctx context.Context, size uint64, count uint64) (uint64, error) {
-	return r.modCalloc.Call(ctx, size, count)
+	ptr, err := r.modCalloc.Call(ctx, size, count)
+	if err == nil && ptr == 0 && size != 0 && count != 0 {
+		return 0, ErrMemoryLimit
+	}
+	return ptr, err
 }
 
 func (r *Runtime) Free(ctx context.Context, ptr uint64) error {

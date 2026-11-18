@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/danielgatis/go-ruby-prism/wasm"
+	"github.com/flashcatcloud/go-ruby-prism/wasm"
 )
 
 type Parser struct {
@@ -64,6 +64,9 @@ func (p *Parser) Parse(ctx context.Context, source []byte) (result *ParseResult,
 		if r := recover(); r != nil {
 			result = nil
 			err = fmt.Errorf("recovered from panic: %v", r)
+		}
+		if err != nil {
+			_ = p.runtime.Close(context.Background())
 		}
 	}()
 

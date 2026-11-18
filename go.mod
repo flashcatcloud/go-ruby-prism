@@ -1,4 +1,4 @@
-module github.com/danielgatis/go-ruby-prism
+module github.com/flashcatcloud/go-ruby-prism
 
 go 1.24
 

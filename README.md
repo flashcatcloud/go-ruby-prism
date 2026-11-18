@@ -1,8 +1,8 @@
 # go-ruby-prism
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/danielgatis/go-ruby-prism?style=flat-square)](https://goreportcard.com/report/github.com/danielgatis/go-ruby-prism)
+[![Go Report Card](https://goreportcard.com/badge/github.com/flashcatcloud/go-ruby-prism?style=flat-square)](https://goreportcard.com/report/github.com/flashcatcloud/go-ruby-prism)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/danielgatis/go-ruby-prism/master/LICENSE)
-[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/danielgatis/go-ruby-prism)
+[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/flashcatcloud/go-ruby-prism)
 
 **go-ruby-prism** is a Go library that leverages the [Ruby Prism parser](https://github.com/ruby/prism) compiled to WebAssembly, enabling Ruby code parsing and analysis without the need for CGO bindings. This solution provides native and efficient integration for Ruby code analysis in Go applications.
 
@@ -39,13 +39,13 @@
 ### Installation via go get
 
 ```bash
-go get github.com/danielgatis/go-ruby-prism
+go get github.com/flashcatcloud/go-ruby-prism
 ```
 
 ### Manual installation
 
 ```bash
-git clone https://github.com/danielgatis/go-ruby-prism.git
+git clone https://github.com/flashcatcloud/go-ruby-prism.git
 cd go-ruby-prism
 make all
 ```
@@ -62,7 +62,7 @@ import (
 	"fmt"
 	"log"
 
-	parser "github.com/danielgatis/go-ruby-prism/parser"
+	parser "github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 func main() {
@@ -103,7 +103,7 @@ import (
 	"fmt"
 	"log"
 
-	parser "github.com/danielgatis/go-ruby-prism/parser"
+	parser "github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 func main() {
@@ -155,7 +155,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/danielgatis/go-ruby-prism/parser"
+	"github.com/flashcatcloud/go-ruby-prism/parser"
 )
 
 type CodeAnalyzer struct {
@@ -448,7 +448,7 @@ go run example/[example-name]/main.go
 
 ```bash
 # Set up development environment
-git clone https://github.com/danielgatis/go-ruby-prism.git
+git clone https://github.com/flashcatcloud/go-ruby-prism.git
 cd go-ruby-prism
 make all
 

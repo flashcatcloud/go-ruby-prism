@@ -103,6 +103,8 @@ func serializeParserOptions(
 		output.WriteByte(0)
 	}
 
+	output.WriteByte(0) // freeze: required by the bundled Prism options wire format.
+
 	// scopes
 	if _, err := output.Write(serializeInt(len(scopes))); err != nil {
 		return nil, fmt.Errorf("failed to serialize scopes length: %w", err)
@@ -111,6 +113,7 @@ func serializeParserOptions(
 		if _, err := output.Write(serializeInt(len(scope))); err != nil {
 			return nil, fmt.Errorf("failed to serialize scope length: %w", err)
 		}
+		output.WriteByte(0) // No argument forwarding is configured for this scope.
 		for _, local := range scope {
 			if _, err := output.Write(serializeInt(len(local))); err != nil {
 				return nil, fmt.Errorf("failed to serialize local length: %w", err)
